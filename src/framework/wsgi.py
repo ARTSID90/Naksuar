@@ -1,42 +1,23 @@
+import mimetypes
+
 from framework.consts import dir_static
 
 
 def application(environ, start_response):
     url = environ["PATH_INFO"]
-    if url == "/xxx/":
-        status = "200 OK"
-        headers = {
-            "Content-type": "text/css",
-        }
-        payload = read_from_style_css()
-        start_response(status, list(headers.items()))
 
-        yield payload
-    else:
-        status = "200 OK"
-        headers = {
-            "Content-type": "text/html",
-        }
-        payload = read_from_index_html()
+    file_names = {"/xxx": "styles.css", "/space.jpg/": "space.jpg"}
 
-        start_response(status, list(headers.items()))
+    file_name = file_names.get(url, "index.html")
 
-        yield payload
+    status = "200 OK"
+    headers = {"Content-type": mimetypes.MimeTypes().guess_type(file_name)[0]}
+    payload = read_static(file_name)
+    start_response(status, list(headers.items()))
+    yield payload
 
-
-def read_from_index_html():
-    path = dir_static / "index.html"
-    with path.open("r") as fp:
+def read_static(file_name: str) -> bytes:
+    path = dir_static / file_name
+    with path.open("rb") as fp:
         payload = fp.read()
-
-    payload = payload.encode()
-    return payload
-
-
-def read_from_style_css():
-    path = dir_static / "style.css"
-    with path.open("r") as fp:
-        payload = fp.read()
-
-    payload = payload.encode()
     return payload
