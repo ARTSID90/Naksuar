@@ -1,23 +1,33 @@
-import mimetypes
+from framework.errors import NotFound
+from framework.types import RequestT
+from framework.utils import get_query
+from framework.utils import get_request_headers
+from handlers import get_handler_and_kwargs
+from handlers import special
 
-from framework.consts import dir_static
 
+def application(environ: dict, start_response):
+    path = environ["PATH_INFO"]
+    method = environ["REQUEST_METHOD"]
+    handler, kwargs = get_handler_and_kwargs(path)
+    request_headers = get_request_headers(environ)
+    query = get_query(environ)
 
-def application(environ, start_response):
-    url = environ["PATH_INFO"]
+    request = RequestT(
+        headers=request_headers,
+        kwargs=kwargs,
+        method=method,
+        path=path,
+        query=query,
+    )
 
-    file_names = {"/xxx": "styles.css", "/space.jpg/": "space.jpg"}
+    try:
+        response = handler(request)
+    except NotFound:
+        response = special.handle_404(request)
+    except Exception:
+        response = special.handle_500(request)
 
-    file_name = file_names.get(url, "index.html")
+    start_response(response.status, list(response.headers.items()))
 
-    status = "200 OK"
-    headers = {"Content-type": mimetypes.MimeTypes().guess_type(file_name)[0]}
-    payload = read_static(file_name)
-    start_response(status, list(headers.items()))
-    yield payload
-
-def read_static(file_name: str) -> bytes:
-    path = dir_static / file_name
-    with path.open("rb") as fp:
-        payload = fp.read()
-    return payload
+    yield response.payload
