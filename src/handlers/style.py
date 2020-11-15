@@ -1,9 +1,9 @@
 from framework.types import RequestT
-from framework.types import ResponsenT
+from framework.types import ResponseT
 from framework.utils import read_static
 
 
-def handle_styles(_request: RequestT) -> ResponsenT:
+def handle_styles(_request: RequestT) -> ResponseT:
     payload = read_static("style.css")
     status = "200 OK"
     headers = {"Content-type": "text/css"}

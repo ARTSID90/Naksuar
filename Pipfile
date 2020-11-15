@@ -12,9 +12,9 @@ pudb = "*"
 pytest = "*"
 pytest-mock = "*"
 pytest-selenium = "*"
-colorama = "*"
 
 [packages]
+delorean = "*"
 dynaconf = { extras = ["yaml"], version = "*" }
 gunicorn = "*"
 psycopg2-binary = "*"

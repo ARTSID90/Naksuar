@@ -18,31 +18,31 @@
 }
 
 body {
-  background-color: #040a16;
-  color: orange;
+  background-color: #d9d46f;
+  color: #3a109d;
   font-size: var(--font-size);
   margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: yellow;
+  color: #07557e;
   font-family: "Yeseva One", cursive;
 }
 
 a {
-  color: darkorange;
+  color: #a7620d;
 }
 
 a:hover {
-  color: orangered;
+  color: #c8b4ad;
 }
 
 a:visited {
-  color: #be2197;
+  color: chocolate;
 }
 
 header {
-  background-color: #321770;
+  background-color: #faf8fa;
   display: grid;
   grid-template-columns: 20% 80%;
   grid-template-rows: repeat(2, auto);
@@ -77,16 +77,8 @@ header nav p:last-of-type {
   border-right: 0;
 }
 
-main {
-  background-color: var(--color-bg);
-  --color-bg: #a41111;
-  margin-left: 4rem;
-  margin-right: 4rem;
-  padding: 2rem;
-}
-
 .url {
-  background-color: #dd8e08;
+  background-color: black;
   color: limegreen;
   font-family: "Fira Code", Courier, monospace;
   font-size: 200%;

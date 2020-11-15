@@ -2,13 +2,14 @@ import random
 from html import escape
 
 from framework.types import RequestT
-from framework.types import ResponsenT
+from framework.types import ResponseT
+from framework.utils import build_status
 from framework.utils import format_env_var
 from framework.utils import http_first
 from framework.utils import read_static
 
 
-def handle_404(request: RequestT) -> ResponsenT:
+def handle_404(request: RequestT) -> ResponseT:
     url = request.path
     pin = random.randint(1, 999999)
 
@@ -35,10 +36,22 @@ def handle_404(request: RequestT) -> ResponsenT:
         <div>
     """
 
-    document = base_html.format(xxx=html_404)
+    document = base_html.format(body=html_404)
 
     payload = document.encode()
-    status = "404 Not Found"
+    status = build_status(404)
     headers = {"Content-type": "text/html"}
 
     return ResponseT(status, headers, payload)
+
+
+def handle_405(request: RequestT) -> ResponseT:
+    status = build_status(405)
+    payload = f"Resource {request.path} does not support {request.method} requests."
+    headers = {"Content-type": "text/plain"}
+
+    return ResponseT(
+        status=status,
+        headers=headers,
+        payload=payload.encode(),
+    )
