@@ -12,10 +12,10 @@ from .index import handle_index
 urlpatterns: Dict[re.compile, HandlerT] = {
     re.compile(_path_pattern): _handler
     for _path_pattern, _handler in {
-        "^/Main/$": handle_index,
+        "^/$": handle_index,
         "^/e/$": handle_error,
-        "^/Hello/$": handle_hello,
-        "^/Hello/clear/$": handle_hello_delete,
+        "^/h/$": handle_hello,
+        "^/h/clear/$": handle_hello_delete,
         "^/s/(?P<file_name>.+)$": special.handle_static,
     }.items()
 }
