@@ -7,8 +7,8 @@ rel.pack()
 
 def clock():
     now = time("%H:%M:%S")
-    if rel['text'] != now:
-        rel['text'] = now
+    if rel["text"] != now:
+        rel["text"] = now
     rel.after(100, clock)
 
 
