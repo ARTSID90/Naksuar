@@ -12,7 +12,7 @@ url = "http://localhost:8000/h/"
 def test(browser, request):
     page = HelloPage(browser, url)
 
-    assert page.greeting.text == "Hello anonymous"
+    assert page.greeting.text == "Hello"
     assert page.address.text == "Hello dude"
 
     page.name_input.clear()
@@ -29,7 +29,7 @@ def test(browser, request):
     page.address_input.send_keys("localhost")
     page.submit_button.click()
     validate_redirect(page, url)
-    assert page.greeting.text == "Hello anonymous"
+    assert page.greeting.text == "Hello"
     assert page.address.text == "You are in localhost"
     assert page.address_input.get_attribute("value") == "localhost"
 
