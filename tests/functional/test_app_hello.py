@@ -13,7 +13,7 @@ def test(browser, request):
     page = HelloPage(browser, url)
 
     assert page.greeting.text == "Hello {name_header}"
-    assert page.address.text == "Hello dude"
+    assert page.address.text == "You are in {address_header}"
 
     page.name_input.clear()
     page.address_input.clear()
