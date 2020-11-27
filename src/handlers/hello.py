@@ -33,7 +33,7 @@ def _handle_hello_index(request: RequestT) -> ResponseT:
     hello_html = read_static("hello.html").content.decode()
 
     body = hello_html.format(
-        address_header=request.user.address or "Hello dude",
+        address_header=request.user.address or "You are in nowhere",
         address_value=request.user.address or "",
         name_header=request.user.name or "anonymous",
         name_value=request.user.name or "",
