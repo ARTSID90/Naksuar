@@ -41,3 +41,4 @@ ci:
 heroku:
   HOST: "Naksuar.herokuapp.com"
   MODE_DEBUG: false
+  VENV_SYNTHETIC: true
