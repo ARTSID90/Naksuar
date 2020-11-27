@@ -9,7 +9,7 @@ url = "http://localhost:8000/h/"
 
 @pytest.mark.functional
 @screenshot_on_failure
-def test(browser, _request):
+def test(browser, request):
     page = HelloPage(browser, url)
 
     assert page.greeting.text == "Hello"
