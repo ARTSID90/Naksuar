@@ -31,4 +31,3 @@ def view_hello_greet(request: HttpRequest) -> HttpResponse:
 def view_hello_reset(request: HttpRequest) -> HttpResponse:
     request.session.clear()
     return redirect("/h/")
-
