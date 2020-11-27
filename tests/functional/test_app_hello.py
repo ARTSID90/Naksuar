@@ -9,11 +9,11 @@ url = "http://localhost:8000/h/"
 
 @pytest.mark.functional
 @screenshot_on_failure
-def test(browser, request):
+def test(browser, _request):
     page = HelloPage(browser, url)
 
     assert page.greeting.text == "Hello"
-    assert page.address.text == "Hello dude"
+    assert page.address.text == "You are in her"
 
     page.name_input.clear()
     page.address_input.clear()
@@ -35,7 +35,7 @@ def test(browser, request):
 
     page.name_input.clear()
     page.address_input.clear()
-    page.name_input.send_keys("Alex")
+    page.name_input.send_keys("Naksuar")
     page.address_input.send_keys("localhost")
     page.submit_button.click()
     validate_redirect(page, url)
