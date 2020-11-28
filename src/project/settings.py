@@ -2,9 +2,13 @@ import os
 from pathlib import Path
 
 import dj_database_url
+import sentry_sdk
 from dynaconf import settings as dyn
 
 DEBUG = dyn.MODE_DEBUG
+
+if not DEBUG:
+    sentry_sdk.init(dyn.SENTRY_DSN, traces_sample_rate=1.0)
 
 _this_file = Path(__file__).resolve()
 
@@ -13,10 +17,6 @@ DIR_PROJECT = _this_file.parent.resolve()
 DIR_SRC = DIR_PROJECT.parent.resolve()
 
 DIR_REPO = DIR_SRC.parent.resolve()
-
-SECRET_KEY = dyn.SECRET_KEY
-
-DEBUG = dyn.MODE_DEBUG
 
 SECRET_KEY = dyn.SECRET_KEY
 
