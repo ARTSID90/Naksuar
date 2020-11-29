@@ -2,28 +2,23 @@ import os
 from pathlib import Path
 
 import dj_database_url
-import sentry_sdk
-from dynaconf import settings as dyn
+from dynaconf import settings as _ds
 
-DEBUG = dyn.MODE_DEBUG
+DIR_SRC = Path(__file__).resolve().parent.parent
 
-if not DEBUG:
-    sentry_sdk.init(dyn.SENTRY_DSN, traces_sample_rate=1.0)
-
-_this_file = Path(__file__).resolve()
-
-DIR_PROJECT = _this_file.parent.resolve()
-
-DIR_SRC = DIR_PROJECT.parent.resolve()
+DIR_PROJECT = (DIR_SRC / "project").resolve()
 
 DIR_REPO = DIR_SRC.parent.resolve()
 
-SECRET_KEY = dyn.SECRET_KEY
+
+SECRET_KEY = _ds.SECRET_KEY
+
+DEBUG = _ds.MODE_DEBUG
 
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    dyn.HOST,
+    _ds.HOST,
 ]
 
 INSTALLED_APPS = [
@@ -33,9 +28,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # ---------------------------
+    # -------------------------------------
+    "applications.main.apps.LandingConfig",
     "applications.hello.apps.HelloConfig",
-    "applications.landing.apps.LandingConfig",
 ]
 
 MIDDLEWARE = [
@@ -69,9 +64,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "project.wsgi.application"
 
-DATABASE_URL = os.getenv("DATABASE_URL", dyn.DATABASE_URL)
 
-DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+database_url = os.getenv("DATABASE_URL", _ds.DATABASE_URL)
+
+DATABASES = {
+    "default": dj_database_url.parse(database_url)
+}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,6 +93,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -98,7 +107,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = "/s/"
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = "/static/"
 
 STATIC_ROOT = DIR_REPO / ".static"
 
