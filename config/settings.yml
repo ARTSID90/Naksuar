@@ -1,6 +1,6 @@
 default:
   ALLOWED_HOSTS: [ ]
-  DATABASE_URL: """*"
+  DATABASE_URL: ""
   DIRS_EXCLUDED:
     - .idea
     - .pytest_cache
@@ -25,6 +25,7 @@ default:
   SECRET_KEY: ""
   SENTRY_DSN: ""
   TEMPLATE_ENGINE: "Django"
+  TEST_BROWSER: ""
   VENV_SYNTHETIC: false
   WEB_CONCURRENCY: 0
 
@@ -35,10 +36,12 @@ development:
   SECRET_KEY: "1"
   WEB_CONCURRENCY: 2
 
+
 ci:
   HOST: "localhost"
   PORT: 8000
   SECRET_KEY: "1"
+  TEST_BROWSER: "chrome"
   WEB_CONCURRENCY: 2
 
 
