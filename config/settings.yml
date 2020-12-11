@@ -46,6 +46,6 @@ ci:
 
 
 heroku:
-  HOST: "Naksuar.herokuapp.com"
+  HOST: "tms-z37.herokuapp.com"
   MODE_DEBUG: false
   VENV_SYNTHETIC: true
