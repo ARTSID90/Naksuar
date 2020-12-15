@@ -1,7 +1,7 @@
 # -----------------------------------------------
 # independent variables
 
-DIR_VENV := $(shell python -m pipenv --venv 2>/dev/null)
+DIR_VENV := $(shell pipenv --venv 2>/dev/null)
 
 
 # -----------------------------------------------
